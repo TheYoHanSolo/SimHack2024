@@ -9,16 +9,25 @@ np.random.seed(0)
 colors = ['blue', 'green', 'orange', 'yellow']
 class Resource:
      def __init__(self, x, y, z):
-        self.pos = np.array([[x, y, z]])
+        self.pos = [x, y, z]
         self.colors = ['blue', 'green'] # or orange, or yellow
         self.TxRate = 40
         self.RxRate = 35
-        self.velocity = np.array([[0, 0, 0]])
+        self.velocity = [0, 0, 0]
         self.connection = None
+        self.connectedRelay = None
+        self.connectionEstablished = False
 
 class Relay(Resource):
     def __init__(self, x, y, z):
         super().__init__(x, y, z)
+
+    def establishConnectionToRelay(self, other):
+
+        self.RxRate = self.RxRate - other.TxRate
+        other.connectedRelay = self
+
+
 
 class House(Resource):
     def __init__(self, x, y, z):
@@ -280,5 +289,6 @@ for i in range(len(cars)):
     cars[i].closestRelay = closestNum
     closestRelay_Cars.append(closestNum)
     ax.plot([cars[i].pos[0], relays[closestNum].pos[0]], [cars[i].pos[1], relays[closestNum].pos[1]])
+
 
 plt.show()
