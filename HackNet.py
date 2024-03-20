@@ -283,7 +283,7 @@ for i in range(len(phones)):
     phoneDistances.append(check)
     phones[i].closestRelay = closestNum
     closestRelay_phones.append(closestNum)
-    ax.plot([phones[i].pos[0], relays[closestNum].pos[0]], [phones[i].pos[1], relays[closestNum].pos[1]])
+    ax.plot([phones[i].pos[0, 0], relays[closestNum].pos[0, 0]], [phones[i].pos[0, 1], relays[closestNum].pos[0, 1]])
 
 print(closestRelay_phones)
 
@@ -302,7 +302,7 @@ for i in range(len(houses)):
     houseDistances.append(check)
     houses[i].closestRelay = closestNum #Store closest relay index in object
     closestRelay_Houses.append(closestNum)
-    ax.plot([houses[i].pos[0], relays[closestNum].pos[0]], [houses[i].pos[1], relays[closestNum].pos[1]])
+    ax.plot([houses[i].pos[0, 0], relays[closestNum].pos[0, 0]], [houses[i].pos[0, 1], relays[closestNum].pos[0, 1]])
 
 carDistances = []
 closestRelay_Cars = []
