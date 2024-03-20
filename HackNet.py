@@ -15,6 +15,44 @@ class Resource:
         self.RxRate = 35
         self.velocity = [0, 0, 0]
         self.connection = None
+        self.connectionList = []
+        self.connectionEstablished = False
+
+    def establishConnectionToRelay(self, relay):
+
+        relay.RxRate = relay.RxRate - self.TxRate
+        self.connectionList.append(relay)
+
+        if relay.RxRate <= 0:
+
+            print('Relay is out of bandwidth!')
+            print('Boom!')
+
+    def nextConnection(self):
+
+        if self.connectionEstablished == False:
+
+            selfPos = self.connectionList[-1].pos
+
+            finalPos = self.connection.pos
+
+            if np.linalg.norm(selfPos - finalPos) <= 225:
+
+                self.connectionList.append(self.connection)
+                self.connectionEstablished = True
+
+                print('Hacker Voice: Im in')
+
+            else:
+
+                #TODO find next nearest relay
+                pass
+            
+        else: 
+
+            pass
+
+
 
 class Relay(Resource):
     def __init__(self, x, y, z):
@@ -279,6 +317,25 @@ for i in range(len(cars)):
     carDistances.append(check)
     cars[i].closestRelay = closestNum
     closestRelay_Cars.append(closestNum)
-    ax.plot([cars[i].pos[0], relays[closestNum].pos[0]], [cars[i].pos[1], relays[closestNum].pos[1]])
+    ax.plot([cars[i].pos[0, 0], relays[closestNum].pos[0, 0]], [cars[i].pos[0, 1], relays[closestNum].pos[0, 1]])
 
+for car in cars:
+
+    car.establishConnectionToRelay(relays[car.closestRelay])
+    car.nextConnection()
+
+for phone in phones:
+
+    phone.establishConnectionToRelay(relays[phone.closestRelay])
+    phone.nextConnection()
+
+for house in houses:
+
+    house.establishConnectionToRelay(relays[house.closestRelay])
+    house.nextConnection()
+
+for relay in relays:
+
+    print(relay.RxRate)
+    
 plt.show()
