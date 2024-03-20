@@ -9,7 +9,7 @@ np.random.seed(0)
 colors = ['blue', 'green', 'orange', 'yellow']
 class Resource:
     def __init__(self, x, y, z):
-        self.pos = [x, y, z]
+        self.pos = np.array([[x, y, z]])
         self.colors = ['blue', 'green'] # or orange, or yellow
         self.TxRate = 40
         self.RxRate = 35
@@ -27,6 +27,10 @@ class Resource:
 
             print('Relay is out of bandwidth!')
             print('Boom!')
+
+    def nextConnection(self):
+
+        pass
 
 
 
@@ -247,9 +251,9 @@ closestRelay_phones = []
 for i in range(len(phones)):
     check = []
     closest = 1000
-    phonePos = np.array(phones[i].pos)
+    phonePos = phones[i].pos
     for j in range(len(relays)):
-        relayPos = np.array(relays[j].pos)
+        relayPos = relays[j].pos
         check.append(np.linalg.norm(phonePos-relayPos))
         if check[j] < closest:
             closestNum = j
@@ -257,7 +261,7 @@ for i in range(len(phones)):
     phoneDistances.append(check)
     phones[i].closestRelay = closestNum
     closestRelay_phones.append(closestNum)
-    ax.plot([phones[i].pos[0], relays[closestNum].pos[0]], [phones[i].pos[1], relays[closestNum].pos[1]])
+    ax.plot([phones[i].pos[0, 0], relays[closestNum].pos[0, 0]], [phones[i].pos[0, 1], relays[closestNum].pos[0, 1]])
 
 print(closestRelay_phones)
 
@@ -266,9 +270,9 @@ closestRelay_Houses = []
 for i in range(len(houses)):
     check = []
     closest = 1000
-    housePos = np.array(houses[i].pos)
+    housePos = houses[i].pos
     for j in range(len(relays)):
-        relayPos = np.array(relays[j].pos)
+        relayPos = relays[j].pos
         check.append(np.linalg.norm(housePos-relayPos))
         if check[j] < closest:
             closestNum = j
@@ -276,16 +280,16 @@ for i in range(len(houses)):
     houseDistances.append(check)
     houses[i].closestRelay = closestNum
     closestRelay_Houses.append(closestNum)
-    ax.plot([houses[i].pos[0], relays[closestNum].pos[0]], [houses[i].pos[1], relays[closestNum].pos[1]])
+    ax.plot([houses[i].pos[0, 0], relays[closestNum].pos[0, 0]], [houses[i].pos[0, 1], relays[closestNum].pos[0, 1]])
 
 carDistances = []
 closestRelay_Cars = []
 for i in range(len(cars)):
     check = []
     closest = 1000
-    carPos = np.array(cars[i].pos)
+    carPos = cars[i].pos
     for j in range(len(relays)):
-        relayPos = np.array(relays[j].pos)
+        relayPos = relays[j].pos
         check.append(np.linalg.norm(carPos-relayPos))
         if check[j] < closest:
             closestNum = j
@@ -293,7 +297,7 @@ for i in range(len(cars)):
     carDistances.append(check)
     cars[i].closestRelay = closestNum
     closestRelay_Cars.append(closestNum)
-    ax.plot([cars[i].pos[0], relays[closestNum].pos[0]], [cars[i].pos[1], relays[closestNum].pos[1]])
+    ax.plot([cars[i].pos[0, 0], relays[closestNum].pos[0, 0]], [cars[i].pos[0, 1], relays[closestNum].pos[0, 1]])
 
 for car in cars:
 
