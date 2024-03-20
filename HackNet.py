@@ -28,7 +28,7 @@ class Resource:
         if relay.RxRate <= 0:
 
             print('Relay is out of bandwidth!')
-            print('Boom!')
+            print('Tracking IP address now and doxxing location :)')
 
     def nextConnection(self):
 
