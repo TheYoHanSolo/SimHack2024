@@ -301,7 +301,15 @@ for car in cars:
 
 for phone in phones:
 
-    phone.establishConnectionToRelay(relays[car.closestRelay])
+    phone.establishConnectionToRelay(relays[phone.closestRelay])
     #print(phone.connectionList)
+
+for house in houses:
+
+    house.establishConnectionToRelay(relays[house.closestRelay])
+
+for relay in relays:
+
+    print(relay.RxRate)
     
 plt.show()
