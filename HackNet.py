@@ -11,7 +11,7 @@ class Resource:
 
     def __init__(self, x, y, z):
 
-        self.pos = [x, y, z]
+        self.pos = np.array([[x, y, z]])
         self.colors = ['blue', 'green'] # or orange, or yellow
         self.TxRate = 40
         self.RxRate = 35
