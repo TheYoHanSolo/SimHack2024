@@ -302,6 +302,6 @@ for car in cars:
 for phone in phones:
 
     phone.establishConnectionToRelay(relays[car.closestRelay])
-    %print(phone.connectionList)
+    #print(phone.connectionList)
     
 plt.show()
