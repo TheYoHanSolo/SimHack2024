@@ -23,6 +23,7 @@ class Resource:
     def establishConnectionToRelay(self, relay):
 
         relay.RxRate = relay.RxRate - self.TxRate
+        relay.connectionList.append(self)
         self.connectionList.append(relay)
 
         if relay.RxRate <= 0:
@@ -339,6 +340,12 @@ for house in houses:
 for relay in relays:
 
     print(relay.RxRate)
+
+for i in range(len(relays)):
+
+    print(f"relay {i}")
+    print(relays[i].RxRate)
+    print(relays[i].connectionList)
     
 plt.show()
 
