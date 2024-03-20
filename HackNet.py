@@ -8,13 +8,29 @@ np.random.seed(0)
 
 colors = ['blue', 'green', 'orange', 'yellow']
 class Resource:
-     def __init__(self, x, y, z):
+
+    def __init__(self, x, y, z):
+
         self.pos = [x, y, z]
         self.colors = ['blue', 'green'] # or orange, or yellow
         self.TxRate = 40
         self.RxRate = 35
         self.velocity = [0, 0, 0]
         self.connection = None
+        self.connectionList = []
+        self.connectionEstablished = False
+
+    def establishConnectionToRelay(self, relay):
+
+        relay.RxRate = relay.RxRate - self.TxRate
+        self.connectionList.append(relay)
+
+        if relay.RxRate <= 0:
+
+            print('Relay is out of bandwidth!')
+            print('Boom!')
+
+
 
 class Relay(Resource):
     def __init__(self, x, y, z):
@@ -281,4 +297,22 @@ for i in range(len(cars)):
     closestRelay_Cars.append(closestNum)
     ax.plot([cars[i].pos[0], relays[closestNum].pos[0]], [cars[i].pos[1], relays[closestNum].pos[1]])
 
+for car in cars:
+
+    car.establishConnectionToRelay(relays[car.closestRelay])
+
+for phone in phones:
+
+    phone.establishConnectionToRelay(relays[phone.closestRelay])
+    #print(phone.connectionList)
+
+for house in houses:
+
+    house.establishConnectionToRelay(relays[house.closestRelay])
+
+for relay in relays:
+
+    print(relay.RxRate)
+    
 plt.show()
+
